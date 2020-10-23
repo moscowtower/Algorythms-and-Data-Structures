@@ -1,5 +1,5 @@
 from random import randint
-
+#
 def find_min1(lst_obj):
     min = lst_obj[0] if lst_obj else None
     for i in lst_obj:

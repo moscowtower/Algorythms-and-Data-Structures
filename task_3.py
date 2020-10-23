@@ -2,7 +2,7 @@ from random import randint
 
 slovar = {'Компания ' + chr(65+i) : randint(10000, 1000000) for i in range(15)}
 
-#1
+# 1
 def find_max1(dikt):
     dikt_copy = dikt.copy()
     dikt_copy = {comp : rev for comp, rev in sorted(dikt_copy.items(), key=lambda revenue: revenue[1], reverse=True)[:3]} # O(n log n)
@@ -11,7 +11,7 @@ def find_max1(dikt):
 
     # O(n log n) + O(n) = O(n)
 
-#2
+# 2
 def find_max2(dikt):
     dikt_copy = dikt.copy()
     for i in range(3):
@@ -19,7 +19,7 @@ def find_max2(dikt):
 
     # O(2 * max(dikt, dikt.get)) + O(1) = O(n)
 
-#3
+# 3
 def find_max3(dikt):
     comps, revs = [], []
     for comp, rev in dikt.items():

@@ -69,7 +69,7 @@ def login2():
         for user in active_users:
             print(user)
 
-login2() # O(n^2)
+login2() # O (n^2)
 
 """
 1. O(1)
