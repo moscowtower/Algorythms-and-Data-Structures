@@ -53,7 +53,7 @@ def beautify(list_of_stacks):
     for el in list_of_stacks:
         if el.getCapacity() == 0:
             a+=5
-        else:
+        else:  
             b = el.getCapacity()
     print(f'Полных: {a}')
     if b:
