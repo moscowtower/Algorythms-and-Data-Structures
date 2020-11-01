@@ -1,10 +1,23 @@
-"""
-Задание 4.
-Реализуйте скрипт "Кэширование веб-страниц"
+from uuid import uuid4
+from hashlib import sha256
 
-Функция должна принимать url-адрес и проверять
-есть ли в кэше соответствующая страница, если нет, то вносит ее в кэш
+class CacheObject:
+    def __init__(self, cache, limit=None, salt=uuid4().hex):
+        self.cache = set(cache)
+        self.limit = limit
+        self.salt = salt
+        if limit and len(cache) > limit:
+            raise UserWarning(f'Кеш не помещается, не влезает {len(cache)-limit} объектов')
 
-Подсказка: задачу решите обязательно с применением 'соленого' хеширования
-Можете условжнить задачу, реализовав ее через ООП
-"""
+    def caching(self, url):
+        if sha256(url.encode() + self.salt.encode()).hexdigest() in self.cache:
+            print(f'Страница {url} присутствует в кэше объекта {self}')
+        else:
+            result = sha256(url.encode() + self.salt.encode()).hexdigest()
+            self.cache.add(result)
+            print(self.cache)
+
+myCache = CacheObject({}, 10)
+
+myCache.caching('www.google.com')
+myCache.caching('www.google.com')
