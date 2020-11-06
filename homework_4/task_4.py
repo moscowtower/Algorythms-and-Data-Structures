@@ -1,14 +1,4 @@
-"""
-Задание 4.
-
-Приведены два алгоритма. В них определяется число,
-которое встречается в массиве чаще всего.
-
-Сделайте профилировку каждого алгоритма через timeit
-
-Попытайтесь написать третью версию, которая будет самой быстрой.
-Сделайте замеры и опишите, получилось ли у вас ускорить задачу.
-"""
+from timeit import timeit
 
 array = [1, 3, 1, 3, 4, 5, 1]
 
@@ -37,7 +27,14 @@ def func_2():
            f'оно появилось в массиве {max_2} раз(а)'
 
 def func_3():
-    
+    return f'Чаще всего встречается число {max(array, key=array.count)}, ' \
+           f'оно появилось в массиве {array.count(max(array, key=array.count))} раз(а)'
+
 
 print(func_1())
 print(func_2())
+print(func_3())
+
+print(f'Длительность исполнения func_1(): ', timeit('func_1', 'from __main__ import func_1', number=1000000))
+print(f'Длительность исполнения func_2(): ', timeit('func_2', 'from __main__ import func_2', number=1000000))
+print(f'Длительность исполнения func_3(): ', timeit('func_3', 'from __main__ import func_3', number=1000000))
