@@ -36,6 +36,8 @@ def func_2():
     return f'Чаще всего встречается число {elem}, ' \
            f'оно появилось в массиве {max_2} раз(а)'
 
+def func_3():
+    
 
 print(func_1())
 print(func_2())
