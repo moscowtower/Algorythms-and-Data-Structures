@@ -13,10 +13,9 @@
 Опишите результаты, сделайте выводы, где и какой алгоритм эффективнее
 Подумайте и по возможности определите сложность каждого алгоритма
 """
-
+from timeit import timeit
 
 def simple(i):
-    """Без использования «Решета Эратосфена»"""
     count = 1
     n = 2
     while count <= i:
@@ -34,6 +33,36 @@ def simple(i):
         n += 1
     return n
 
+def eratosthenes(n):
+    top_border = 10000
+    a = [i for i in range(top_border)]
+    a[1] = 0
+    i = 2
+    while i < top_border:
+        if a[i] != 0:
+            j = i * 2
+            while j < top_border:
+                a[j] = 0
+                j += i
+        i += 1
+    a = set(a)
+    a.remove(0)
+    return sorted(list(a))[n-1]
 
-i = int(input('Введите порядковый номер искомого простого числа: '))
-print(simple(i))
+s10 = timeit('simple(10)', 'from __main__ import simple', number=100)
+s100 = timeit('simple(100)', 'from __main__ import simple', number=100)
+s1000 = timeit('simple(1000)', 'from __main__ import simple', number=100)
+e10 = timeit('eratosthenes(10)', 'from __main__ import eratosthenes', number=100)
+e100 = timeit('eratosthenes(100)', 'from __main__ import eratosthenes', number=100)
+e1000 = timeit('eratosthenes(1000)', 'from __main__ import eratosthenes', number=100)
+
+print(f'Результаты для simple (10, 100, 1000): {s10} сек., {s100} сек., {s1000} сек.')
+print(f'Результаты для eratosthenes (10, 100, 1000): {e10} сек., {e100} сек., {e1000} сек.')
+
+"""
+Функция без решета была быстрее для чисел с порядковым номером <1000, 
+однако в случаях с >1000 бедная simple() просто захлебнулась
+
+simple() = O (n^2)
+eratosthenes = O log n, либо O log (log n)
+"""
