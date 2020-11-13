@@ -12,8 +12,9 @@ def concat_str(*args):
         res = res + str(arg)
     return res
 
-print(f_str([i for i in range(100000)]))
-print(concat_str([i for i in range(100000)]))
+if __name__ == '__main__':
+    f_str([i for i in range(100000)])
+    concat_str([i for i in range(100000)])
 
 '''
 Line #    Mem usage    Increment  Occurences   Line Contents
