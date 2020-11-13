@@ -11,8 +11,6 @@ def fib(n):
     else:
         return fib(n-1)+fib(n-2)
 
-print(fib(5))
-
 @profile
 def reverseArray(arr, start, end):
     while (start < end):
@@ -22,16 +20,23 @@ def reverseArray(arr, start, end):
         start += 1
         end = end-1
 
-print(reverseArray([59, 23, 11, 23, 22, 5543, 1], 0, 6))
-
-@profile
+@profile(precision=20)
 def sumOfSeries(n):
     sum = 0
     for i in range(1, n + 1):
         sum += i * i * i
     return sum
 
-print(sumOfSeries(10))
+@profile
+def test(n):
+    a = [i for i in range(n)]
+    return a
+
+if __name__ == '__main__':
+    fib(1)
+    reverseArray([59, 23, 11, 23, 22, 5543, 1], 0, 6)
+    sumOfSeries(10)
+    test(1000000)
 """
 Windows x64
 Python 3.8.2
@@ -72,8 +77,16 @@ Line #    Mem usage    Increment  Occurences   Line Contents
     43     18.7 MiB      0.0 MiB          11       for i in range(1, n + 1):
     44     18.7 MiB      0.0 MiB          10           sum += i * i * i
     45     18.7 MiB      0.0 MiB           1       return sum
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Line #    Mem usage    Increment  Occurences   Line Contents
+============================================================
+    30     18.6 MiB     18.6 MiB           1   @profile
+    31                                         def test(n):
+    32     58.1 MiB     39.0 MiB     1000003       a = [i for i in range(n)]
+    33     58.1 MiB      0.0 MiB           1       return a
 
 
-На мой взгляд профайлер либо не работает на моей машине, либо его что-то глушит, либо же расход памяти настолько мизерный,
-что он не в состоянии его посчитать????
+Данные результаты показывают, что  стандартно выделяемой памяти достаточно для работы функций, кроме последней,
+которая была специально перегружена, чтобы вызвать хоть какой-то инкремент. Используя такие данные тяжело судить об 
+эффективности функций, но очевидно что при необходимости, память можно экономить используя такие методы как del.
 """
